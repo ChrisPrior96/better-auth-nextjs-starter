@@ -11,6 +11,20 @@ export const auth = betterAuth({
         schema
     }),
     emailAndPassword: {
-        enabled: true
+        enabled: false
+    },
+    socialProviders: {
+        discord: { 
+            clientId: process.env.DISCORD_CLIENT_ID as string, 
+            clientSecret: process.env.DISCORD_CLIENT_SECRET as string, 
+        }, 
+    },
+    user: {
+        additionalFields: {
+            rsn: {
+                type: "string",
+                nullable: true,
+            }
+        }
     }
 })

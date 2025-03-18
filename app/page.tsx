@@ -1,83 +1,91 @@
-import Image from "next/image"
+import Link from "next/link";
+import Image from "next/image";
+import { Trophy, ArrowRight, Shield, Clock, UserCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
     return (
-        <div className="grid grow grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-[family-name:var(--font-geist-sans)] sm:p-20">
-            <main className="row-start-2 flex flex-col items-center gap-8 sm:items-start">
-                <Image
-                    className="dark:invert"
-                    src="/next.svg"
-                    alt="Next.js logo"
-                    width={180}
-                    height={38}
-                    priority
-                />
-                <ol className="list-inside list-decimal text-center font-[family-name:var(--font-geist-mono)] text-sm sm:text-left">
-                    <li className="mb-2">
-                        Get started by editing{" "}
-                        <code className="rounded bg-black/[.05] px-1 py-0.5 font-semibold dark:bg-white/[.06]">
-                            src/app/page.tsx
-                        </code>
-                        .
-                    </li>
-                    <li>Save and see your changes instantly.</li>
-                </ol>
+        <div className="flex justify-center w-full">
+            <div className="w-full max-w-6xl px-4 py-12 space-y-16">
+                {/* Hero Section */}
+                <section className="flex flex-col items-center text-center space-y-6">
+                    <div className="inline-flex items-center justify-center rounded-full bg-primary/20 px-3 py-1 text-sm font-medium mb-2">
+                        <Trophy className="h-4 w-4 mr-1" />
+                        <span> The Iron CC</span>
+                    </div>
+                    
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
+                        Clan Leaderboards
+                    </h1>
+                    
+                    <p className="text-xl text-muted-foreground max-w-2xl">
+                        Track and share your boss completion times with fellow clan members
+                    </p>
+                    
+                    <div className="flex flex-wrap gap-4 justify-center mt-4">
+                        <Button size="lg" asChild>
+                            <Link href="/dashboard">
+                                View Dashboard
+                                <ArrowRight className="ml-2 h-4 w-4" />
+                            </Link>
+                        </Button>
+                        
+                        <Button variant="outline" size="lg" asChild>
+                            <Link href="/bosses">
+                                Browse Bosses
+                            </Link>
+                        </Button>
+                    </div>
+                </section>
 
-                <div className="flex flex-col items-center gap-4 sm:flex-row">
-                    <a
-                        className="flex h-10 items-center justify-center gap-2 rounded-full border border-transparent border-solid bg-foreground px-4 text-background text-sm transition-colors hover:bg-[#383838] sm:h-12 sm:px-5 sm:text-base dark:hover:bg-[#ccc]"
-                        href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <Image
-                            className="dark:invert"
-                            src="/vercel.svg"
-                            alt="Vercel logomark"
-                            width={20}
-                            height={20}
-                        />
-                        Deploy now
-                    </a>
-                    <a
-                        className="flex h-10 items-center justify-center rounded-full border border-black/[.08] border-solid px-4 text-sm transition-colors hover:border-transparent hover:bg-[#f2f2f2] sm:h-12 sm:min-w-44 sm:px-5 sm:text-base dark:border-white/[.145] dark:hover:bg-[#1a1a1a]"
-                        href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Read our docs
-                    </a>
-                </div>
-            </main>
-            <footer className="row-start-3 flex flex-wrap items-center justify-center gap-6">
-                <a
-                    className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-                    href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <Image aria-hidden src="/file.svg" alt="File icon" width={16} height={16} />
-                    Learn
-                </a>
-                <a
-                    className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-                    href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <Image aria-hidden src="/window.svg" alt="Window icon" width={16} height={16} />
-                    Examples
-                </a>
-                <a
-                    className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-                    href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <Image aria-hidden src="/globe.svg" alt="Globe icon" width={16} height={16} />
-                    Go to nextjs.org →
-                </a>
-            </footer>
+                {/* Features Section */}
+                <section className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="flex flex-col items-center text-center p-6 space-y-4 rounded-lg border bg-card">
+                        <div className="p-3 rounded-full bg-primary/10">
+                            <Trophy className="h-6 w-6 text-primary" />
+                        </div>
+                        <h3 className="text-xl font-bold">Clan Leaderboards</h3>
+                        <p className="text-muted-foreground">
+                            View the fastest completion times across different team sizes
+                        </p>
+                    </div>
+                    
+                    <div className="flex flex-col items-center text-center p-6 space-y-4 rounded-lg border bg-card">
+                        <div className="p-3 rounded-full bg-primary/10">
+                            <Shield className="h-6 w-6 text-primary" />
+                        </div>
+                        <h3 className="text-xl font-bold">Boss Directory</h3>
+                        <p className="text-muted-foreground">
+                            Access organized records for all tracked OSRS bosses
+                        </p>
+                    </div>
+                    
+                    <div className="flex flex-col items-center text-center p-6 space-y-4 rounded-lg border bg-card">
+                        <div className="p-3 rounded-full bg-primary/10">
+                            <UserCircle className="h-6 w-6 text-primary" />
+                        </div>
+                        <h3 className="text-xl font-bold">Member Profiles</h3>
+                        <p className="text-muted-foreground">
+                            View your personal records and compare with other clan members
+                        </p>
+                    </div>
+                </section>
+
+                {/* Access Section */}
+                <section className="rounded-lg bg-card p-8 border text-center">
+                    <h2 className="text-2xl font-bold mb-4">Iron CC Members</h2>
+                    <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+                        Sign in with your clan credentials to access the leaderboards and submit your records
+                    </p>
+                    <div className="flex flex-wrap gap-4 justify-center">
+                        <Button size="lg" asChild>
+                            <Link href="/auth/login">
+                                Sign In
+                            </Link>
+                        </Button>
+                    </div>
+                </section>
+            </div>
         </div>
     )
 }

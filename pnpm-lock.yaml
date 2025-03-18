@@ -13,13 +13,19 @@ importers:
         version: 1.2.31(@tanstack/query-core@5.68.0)(@tanstack/react-query@5.68.0(react@19.0.0))(better-auth@1.2.5-beta.3(typescript@5.8.2))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@daveyplate/better-auth-ui':
         specifier: ^1.2.37
-        version: 1.2.37(2b78824b815e41fb64cc1eb8fb835688)
+        version: 1.2.37(3kyscvmb63f6dzinxzmfbiulbm)
+      '@radix-ui/react-dialog':
+        specifier: ^1.1.6
+        version: 1.1.6(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@radix-ui/react-dropdown-menu':
         specifier: ^2.1.6
         version: 2.1.6(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@radix-ui/react-slot':
         specifier: ^1.1.2
         version: 1.1.2(@types/react@19.0.10)(react@19.0.0)
+      '@radix-ui/react-tabs':
+        specifier: ^1.1.3
+        version: 1.1.3(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@tanstack/react-query':
         specifier: ^5.68.0
         version: 5.68.0(react@19.0.0)
@@ -62,6 +68,9 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@4.0.14)
+      zod:
+        specifier: ^3.24.2
+        version: 3.24.2
     devDependencies:
       '@better-auth/cli':
         specifier: ^1.2.4
@@ -3281,7 +3290,7 @@ snapshots:
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
 
-  '@daveyplate/better-auth-ui@1.2.37(2b78824b815e41fb64cc1eb8fb835688)':
+  '@daveyplate/better-auth-ui@1.2.37(3kyscvmb63f6dzinxzmfbiulbm)':
     dependencies:
       '@daveyplate/better-auth-tanstack': 1.2.31(@tanstack/query-core@5.68.0)(@tanstack/react-query@5.68.0(react@19.0.0))(better-auth@1.2.5-beta.3(typescript@5.8.2))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@radix-ui/react-avatar': 1.1.3(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)

@@ -24,19 +24,10 @@ export function Header() {
                             fillRule="evenodd"
                         />
                     </svg>
-                    BETTER-AUTH. STARTER
+                    Iron CC Leaderboards
                 </Link>
 
                 <div className="flex items-center gap-2">
-                    <Link
-                        href="https://github.com/daveyplate/better-auth-nextjs-starter"
-                        target="_blank"
-                    >
-                        <Button variant="outline" size="icon" className="size-8 rounded-full">
-                            <GitHubIcon />
-                        </Button>
-                    </Link>
-
                     <ModeToggle />
                     <UserButton />
                 </div>

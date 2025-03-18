@@ -1,0 +1,63 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+OldSchool RuneScape clan leaderboard website. The website’s primary purpose is to display speed completion times for various bosses, which include solo, duo, and team (3+ players) categories. Below are the detailed requirements:
+
+Require users to input their RuneScape Name (RSN) upon login.
+User Verification:
+Users will be manually verified by an admin after registration.
+No external API validation for RSNs is needed.
+2. Leaderboards & Dashboard:
+
+Dashboard Page:
+A main dashboard that displays recent new records.
+Navigation links to individual boss leaderboard pages.
+Boss Leaderboard Pages:
+Each boss has its own page.
+Within each boss page, there are separate leaderboards for each team size (e.g., solo, duo, trio, 4-man, 5-man, etc.). Note that some bosses may only allow solo runs while others support multiple team configurations.
+UI Design:
+The top 3 records should be prominently displayed as well-designed cards.
+All additional records should be shown in a table.
+Include filtering and sorting options (by date, time, team size, etc.) on both the dashboard and individual leaderboards.
+3. User Submission of Records:
+
+Submission Process:
+Verified users can submit as many records as they wish for each boss.
+The submission form should include:
+Selection of the boss.
+Selection of the team size from predefined options.
+Input fields to provide the RSN of each team member (for example, a 3-man team requires input for two additional RSNs).
+An upload field for a screenshot as proof.
+The submission timestamp should be automatically recorded by the database.
+Record Status:
+New submissions are marked as “pending” until manually approved by an admin.
+4. Admin Panel & Moderation:
+
+Admin Features:
+A dashboard for admin review of pending submissions where they can manually approve or deny records.
+A user management interface where admins can verify/unverify users and ban users if necessary.
+Super Admin capabilities to assign admin roles.
+Notifications:
+Use Discord webhooks to notify users when:
+Their submission is approved.
+Their top spot is overtaken (i.e., they lose their 1st place position).
+5. Overall Architecture & Technology Stack:
+
+Framework:
+Full-stack Next.js application using React on the front end.
+Back-End:
+Use a SQL database for storing user data, run submissions, and leaderboard records.
+File Storage:
+Define a strategy for storing uploaded screenshots (this can be updated later to integrate with a cloud storage solution).
+Modularity & User Experience:
+The code should be modular, with separate modules/components for authentication, leaderboard management, submission handling, admin moderation, and user profile pages.
+Include a user profile page where users can view their submission history and approved records.
+General Requirements:
+
+The code should be clean, modular, and well-documented.
+Follow best practices in security (e.g., sanitizing file uploads) and scalability.
+Design the UI to be intuitive and responsive, using cards for top records and tables for additional entries.
+Ensure filtering, sorting, and navigation are user-friendly.
+Please generate the complete codebase and design components based on the above specifications.

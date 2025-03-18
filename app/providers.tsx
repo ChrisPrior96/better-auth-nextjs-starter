@@ -68,9 +68,22 @@ export function Providers({ children }: { children: ReactNode }) {
                 >
                     <AuthUIProviderTanstack
                         authClient={authClient}
+                        additionalFields={{
+                            rsn: {
+                                type: "string",
+                                label: "RSN",
+                                placeholder: "Enter your RSN",
+                                description: "Enter your RSN, this will be used to display on the Leaderboard.",
+                                required: true,
+                            }
+                        }}
+                        settingsFields={["rsn"]}
                         navigate={router.push}
                         replace={router.replace}
                         onSessionChange={() => router.refresh()}
+                        providers={["discord"]}
+                        settingsUrl="/dashboard/settings"
+                        credentials={false}
                         LinkComponent={Link}
                     >
                         {children}

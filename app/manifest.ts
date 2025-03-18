@@ -2,10 +2,10 @@ import type { MetadataRoute } from "next"
 
 export default function manifest(): MetadataRoute.Manifest {
     return {
-        name: "Better Auth Next.js Starter",
-        short_name: "Better Auth Starter",
+        name: "Iron CC Leaderboards",
+        short_name: "Iron CC Leaderboards",
         description:
-            "Better Auth Next.js Starter with Postgres, Drizzle, shadcn/ui and Tanstack Query",
+            "Iron CC Leaderboard Tracking for Speed times",
         start_url: "/",
         display: "standalone",
         background_color: "#fff",
