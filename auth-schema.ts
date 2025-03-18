@@ -4,11 +4,16 @@ export const users = pgTable("users", {
 					id: text("id").primaryKey(),
 					name: text('name').notNull(),
  email: text('email').notNull().unique(),
- rsn: text('rsn').notNull().unique(),
  emailVerified: boolean('email_verified').notNull(),
  image: text('image'),
  createdAt: timestamp('created_at').notNull(),
- updatedAt: timestamp('updated_at').notNull()
+ updatedAt: timestamp('updated_at').notNull(),
+ role: text('role'),
+ banned: boolean('banned'),
+ banReason: text('ban_reason'),
+ banExpires: timestamp('ban_expires'),
+ rsn: text('rsn'),
+ verification_status: text('verification_status').default('pending')
 				});
 
 export const sessions = pgTable("sessions", {
@@ -19,7 +24,8 @@ export const sessions = pgTable("sessions", {
  updatedAt: timestamp('updated_at').notNull(),
  ipAddress: text('ip_address'),
  userAgent: text('user_agent'),
- userId: text('user_id').notNull().references(()=> users.id, { onDelete: 'cascade' })
+ userId: text('user_id').notNull().references(()=> users.id, { onDelete: 'cascade' }),
+ impersonatedBy: text('impersonated_by')
 				});
 
 export const accounts = pgTable("accounts", {

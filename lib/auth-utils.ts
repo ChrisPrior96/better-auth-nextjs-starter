@@ -16,8 +16,16 @@ export async function getSession() {
  * Returns false if not authenticated or not an admin
  */
 export async function isAdmin() {
-  const session = await getSession();
-  // Check if user exists and has admin role
-  // Adjust the property path as needed based on your auth provider's user object structure
-  return !!session?.user && (session.user as any).role === "admin";
+  try {
+    const session = await getSession();
+    // Check if user exists and has admin role
+    if (!session?.user) return false;
+    
+    // Access the role property from the user object
+    const userRole = (session.user as any).role;
+    return userRole === "admin";
+  } catch (error) {
+    console.error("Error checking admin status:", error);
+    return false;
+  }
 } 

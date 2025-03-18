@@ -1,5 +1,6 @@
 import { betterAuth } from "better-auth"
 import { drizzleAdapter } from "better-auth/adapters/drizzle"
+import { admin } from "better-auth/plugins"
 
 import { db } from "@/database/db"
 import * as schema from "@/database/schema"
@@ -26,5 +27,8 @@ export const auth = betterAuth({
                 nullable: true,
             }
         }
-    }
+    },
+    plugins: [
+        admin()
+    ]
 })

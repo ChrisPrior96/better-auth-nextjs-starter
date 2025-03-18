@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1742297386897,
-      "tag": "0000_open_tiger_shark",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1742305160703,
-      "tag": "0001_melted_centennial",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1742309973414,
-      "tag": "0002_steady_karma",
+      "when": 1742317478954,
+      "tag": "0000_flimsy_sir_ram",
       "breakpoints": true
     }
   ]
