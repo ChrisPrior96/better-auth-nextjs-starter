@@ -1,4 +1,5 @@
 import { getRecentRecords } from '@/app/actions/records'
+import { Users } from 'lucide-react'
 
 // Define types
 interface Boss {
@@ -10,6 +11,7 @@ interface Boss {
 interface User {
   username: string;
   rsn: string;
+  name?: string; // Add optional name field
 }
 
 interface Record {
@@ -37,11 +39,52 @@ const RecordCard = ({
   boss: Boss; 
   submitter: User; 
 }) => {
+  // Get submitter's RSN (prefer RSN over username/name)
+  const getSubmitterRsn = () => {
+    if (submitter.rsn && submitter.rsn !== "unknown") {
+      return submitter.rsn;
+    }
+    // Fallback to username if RSN not available
+    return submitter.username || submitter.name || "unknown player";
+  };
+
+  // Format team members for display
+  const displayTeam = () => {
+    const submitterRsn = getSubmitterRsn();
+    
+    // For solo records, just show the submitter's RSN
+    if (record.teamSize === 'solo') {
+      return submitterRsn;
+    }
+    
+    // For team records, ensure we include all members
+    let allMembers = [...record.teamMembers];
+    
+    // Make sure the submitter is included in the team list
+    if (!allMembers.includes(submitterRsn) && submitterRsn !== "unknown player") {
+      allMembers = [submitterRsn, ...allMembers];
+    }
+    
+    // Filter out any empty strings or duplicates
+    allMembers = allMembers
+      .filter(member => member && member.trim() !== '')
+      .filter((member, index, self) => self.indexOf(member) === index);
+      
+    return (
+      <div className="flex items-center gap-1.5">
+        <Users className="h-3.5 w-3.5 text-muted-foreground" />
+        <span className="line-clamp-2">{allMembers.join(', ')}</span>
+      </div>
+    );
+  };
+
   return (
     <div className="rounded-lg border bg-card text-card-foreground shadow">
       <div className="p-6 space-y-2">
         <h3 className="text-lg font-bold">{boss.name}</h3>
-        <p className="text-sm text-muted-foreground">by {submitter.rsn}</p>
+        <div className="text-sm text-muted-foreground">
+          {displayTeam()}
+        </div>
         <p className="text-2xl font-bold text-osrs-gold">{record.completionTime}</p>
         <div className="flex justify-between items-center">
           <span className="bg-primary/10 text-primary text-xs rounded-full px-2 py-1">

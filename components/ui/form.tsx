@@ -45,12 +45,23 @@ const FormField = <
 const useFormField = () => {
   const fieldContext = React.useContext(FormFieldContext)
   const itemContext = React.useContext(FormItemContext)
-  const { getFieldState } = useFormContext()
-  const formState = useFormState({ name: fieldContext.name })
-  const fieldState = getFieldState(fieldContext.name, formState)
-
+  
   if (!fieldContext) {
     throw new Error("useFormField should be used within <FormField>")
+  }
+  
+  // Try to get form context, but handle the case when it's null
+  let fieldState = {}
+  try {
+    const formContext = useFormContext()
+    if (formContext) {
+      const { getFieldState } = formContext
+      const formState = useFormState({ name: fieldContext.name })
+      fieldState = getFieldState(fieldContext.name, formState)
+    }
+  } catch (error) {
+    console.error("Error in useFormField:", error)
+    // Continue with empty fieldState if we can't get it
   }
 
   const { id } = itemContext
@@ -61,6 +72,7 @@ const useFormField = () => {
     formItemId: `${id}-form-item`,
     formDescriptionId: `${id}-form-item-description`,
     formMessageId: `${id}-form-item-message`,
+    error: undefined,
     ...fieldState,
   }
 }
@@ -137,7 +149,10 @@ function FormDescription({ className, ...props }: React.ComponentProps<"p">) {
 
 function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
   const { error, formMessageId } = useFormField()
-  const body = error ? String(error?.message ?? "") : props.children
+  
+  // Convert error to string safely
+  const errorText = error ? String(error) : "";
+  const body = errorText || props.children
 
   if (!body) {
     return null

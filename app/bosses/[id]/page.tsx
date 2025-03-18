@@ -4,7 +4,7 @@ import { ChevronLeft, PlusCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { getBossById, getRecordsByBossId } from "@/app/actions/bosses";
-import { RecordTable } from "@/app/components/record-table";
+import { RecordTable } from "@/components/record-table";
 import { getSession } from "@/lib/auth-utils";
 
 interface PageProps {
@@ -89,13 +89,13 @@ export default async function BossPage({ params }: PageProps) {
 
       {/* Boss Image */}
       {boss.imageUrl && (
-        <div className="relative w-full h-64 overflow-hidden rounded-lg mb-8">
+        <div className="relative w-[300px] h-[300px] overflow-hidden rounded-lg mb-8 mx-auto">
           <img 
             src={boss.imageUrl} 
             alt={boss.name} 
-            className="object-cover w-full h-full"
+            className="object-contain w-full h-full"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent"></div>
+          <div className="absolute inset-0"></div>
         </div>
       )}
 

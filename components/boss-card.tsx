@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 
 interface Boss {
   id: string;
@@ -10,11 +9,14 @@ interface Boss {
 
 export function BossCard({ boss }: { boss: Boss }) {
   return (
-    <div className="rounded-lg border bg-card text-card-foreground shadow group hover:border-osrs-gold/50 transition h-[280px] flex flex-col">
+    <Link 
+      href={`/bosses/${boss.id}`}
+      className="block rounded-xl border bg-card text-card-foreground shadow group hover:border-osrs-gold hover:shadow-md transition-all duration-200 h-[280px] flex flex-col transform hover:-translate-y-1 cursor-pointer"
+    >
       <div className="p-6 flex-1 flex flex-col">
-        <div className="flex justify-between items-start mb-4">
-          <h3 className="text-lg font-bold truncate max-w-[130px]">{boss.name}</h3>
-          <div className="flex flex-wrap gap-1 mt-1">
+        <div className="flex flex-col gap-2 mb-4">
+          <h3 className="text-lg font-bold">{boss.name}</h3>
+          <div className="flex flex-wrap gap-1">
             {boss.allowedTeamSizes.map((size) => (
               <span 
                 key={size} 
@@ -28,28 +30,24 @@ export function BossCard({ boss }: { boss: Boss }) {
         
         <div className="flex-1 flex justify-center items-center">
           {boss.imageUrl ? (
-            <div className="w-24 h-24 overflow-hidden rounded-md bg-black/5 flex items-center justify-center">
+            <div className="w-24 h-24 overflow-hidden rounded-md flex items-center justify-center">
               <img 
                 src={boss.imageUrl} 
                 alt={boss.name} 
-                className="max-w-full max-h-full object-contain transition group-hover:scale-105"
+                className="max-w-full max-h-full object-contain transition group-hover:scale-110"
               />
             </div>
           ) : (
-            <div className="w-24 h-24 rounded-md bg-black/5 flex items-center justify-center">
+            <div className="w-24 h-24 rounded-md flex items-center justify-center">
               <span className="text-muted-foreground">No image</span>
             </div>
           )}
         </div>
         
-        <div className="mt-auto pt-3">
-          <Button asChild className="w-full">
-            <Link href={`/bosses/${boss.id}`}>
-              View Leaderboard
-            </Link>
-          </Button>
-        </div>
+        <p className="text-sm text-primary mt-auto group-hover:text-osrs-gold transition-colors font-medium">
+          View leaderboard →
+        </p>
       </div>
-    </div>
+    </Link>
   );
 } 

@@ -19,8 +19,8 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-    title: "Better Auth Next.js Starter",
-    description: "Better Auth Next.js Starter with Postgres, Drizzle, shadcn/ui and Tanstack Query"
+    title: "Iron CC Leaderboards",
+    description: "Web app for tracking Iron CC Speedrun times"
 }
 
 export default function RootLayout({

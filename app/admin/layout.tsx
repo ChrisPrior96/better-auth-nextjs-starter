@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { getSession, isAdmin } from "@/lib/auth-utils";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ShieldAlert, Users, Database, Home, ListPlus } from "lucide-react";
+import { ShieldAlert, Users, Database, Home, ListPlus, ClipboardCheck } from "lucide-react";
 
 interface AdminLayoutProps {
   children: ReactNode;
@@ -35,6 +35,13 @@ export default async function AdminLayout({ children }: AdminLayoutProps) {
                   <Link href="/admin">
                     <Home className="h-4 w-4 mr-2" />
                     Dashboard
+                  </Link>
+                </Button>
+                
+                <Button variant="ghost" className="w-full justify-start" asChild>
+                  <Link href="/admin/records/pending">
+                    <ClipboardCheck className="h-4 w-4 mr-2" />
+                    Pending Records
                   </Link>
                 </Button>
                 

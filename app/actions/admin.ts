@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache'
 import { db } from '@/database/db'
 import { records, bosses } from '@/database/schema'
-import { eq, desc } from 'drizzle-orm'
+import { eq, desc, and } from 'drizzle-orm'
 import { getSession, isAdmin } from '@/lib/auth-utils'
 import { z } from 'zod'
 
@@ -166,4 +166,120 @@ export async function getUserRecords(userId: string) {
   })
 
   return userRecords
+}
+
+export async function getPendingRecords() {
+  try {
+    // Check if user is admin
+    const isUserAdmin = await isAdmin();
+    if (!isUserAdmin) {
+      throw new Error('Unauthorized')
+    }
+
+    // Get all pending records
+    const pendingRecords = await db
+      .select()
+      .from(records)
+      .where(eq(records.status, 'pending'))
+      .orderBy(desc(records.createdAt));
+    
+    // Import users table
+    const { users } = await import('@/auth-schema');
+    
+    // Manually fetch related data
+    const recordsWithRelations = await Promise.all(
+      pendingRecords.map(async (record) => {
+        // Get the boss data if available
+        let boss = null;
+        if (record.bossId) {
+          const [bossData] = await db
+            .select()
+            .from(bosses)
+            .where(eq(bosses.id, record.bossId))
+            .limit(1);
+          boss = bossData;
+        }
+        
+        // Fetch user data
+        let submitter = { id: "", name: "unknown", rsn: "unknown" };
+        if (record.submitterId) {
+          try {
+            const [userData] = await db
+              .select({
+                id: users.id,
+                name: users.name,
+                rsn: users.rsn
+              })
+              .from(users)
+              .where(eq(users.id, record.submitterId))
+              .limit(1);
+            
+            if (userData) {
+              submitter = {
+                id: userData.id,
+                name: userData.name || "unknown",
+                rsn: userData.rsn || userData.name || "unknown player"
+              };
+            }
+          } catch (error) {
+            console.error('Error fetching user data:', error);
+          }
+        }
+        
+        return {
+          ...record,
+          boss,
+          submitter
+        };
+      })
+    );
+    
+    return { success: true, records: recordsWithRelations };
+  } catch (error) {
+    console.error('Error fetching pending records:', error);
+    return { success: false, error: (error as Error).message, records: [] };
+  }
+}
+
+export async function reviewRecord(recordId: string, action: 'approve' | 'reject') {
+  try {
+    // Check if user is admin
+    const isUserAdmin = await isAdmin();
+    if (!isUserAdmin) {
+      throw new Error('Unauthorized')
+    }
+
+    const status = action === 'approve' ? 'approved' : 'rejected';
+
+    const [updatedRecord] = await db
+      .update(records)
+      .set({ 
+        status,
+        updatedAt: new Date()
+      })
+      .where(eq(records.id, recordId))
+      .returning()
+
+    if (!updatedRecord) {
+      throw new Error('Record not found')
+    }
+
+    // Send Discord notification
+    if (updatedRecord.submitterId) {
+      await sendDiscordNotification({
+        type: action === 'approve' ? 'RECORD_APPROVED' : 'RECORD_REJECTED',
+        recordId: updatedRecord.id,
+        userId: updatedRecord.submitterId,
+      })
+    }
+
+    // Revalidate paths
+    revalidatePath('/admin/records/pending')
+    revalidatePath('/profile/[id]')
+    revalidatePath('/dashboard')
+    
+    return { success: true, record: updatedRecord }
+  } catch (error) {
+    return { success: false, error: (error as Error).message }
+  }
 } 

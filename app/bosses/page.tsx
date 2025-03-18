@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { BossCard } from "@/app/components/boss-card";
+import { BossCard } from "@/components/boss-card";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, Shield, Filter } from "lucide-react";
-import { getBosses } from "../actions/bosses";
+import { ChevronLeft, Shield } from "lucide-react";
+import { getBosses, getAllTeamSizes } from "../actions/bosses";
+import { BossSearch } from "@/components/boss-search";
 import { getSession } from "@/lib/auth-utils";
 
 export const metadata = {
@@ -10,8 +11,15 @@ export const metadata = {
   description: "View all bosses and their leaderboards for the Iron CC clan.",
 };
 
-export default async function BossesPage() {
-  const bosses = await getBosses();
+export default async function BossesPage({
+  searchParams,
+}: {
+  searchParams: { query?: string; teamSize?: string };
+}) {
+
+  const { query, teamSize } = searchParams;
+  const bosses = await getBosses(query, teamSize);
+  const teamSizes = await getAllTeamSizes();
   const session = await getSession();
   const isAuthenticated = !!session?.user;
 
@@ -39,13 +47,11 @@ export default async function BossesPage() {
               <Link href="/submit-record">Submit Record</Link>
             </Button>
           )}
-          
-          <Button variant="outline" className="gap-1">
-            <Filter className="h-4 w-4" />
-            Filter
-          </Button>
         </div>
       </div>
+
+      {/* Search and Filters */}
+      <BossSearch teamSizes={teamSizes} />
 
       {/* Bosses Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -58,7 +64,9 @@ export default async function BossesPage() {
             <Shield className="h-12 w-12 mx-auto mb-4 opacity-50" />
             <p className="text-xl font-semibold mb-2">No bosses found</p>
             <p className="text-sm text-muted-foreground">
-              Boss data will be added soon.
+              {query || teamSize 
+                ? "Try changing your search or filter criteria." 
+                : "Boss data will be added soon."}
             </p>
           </div>
         )}
